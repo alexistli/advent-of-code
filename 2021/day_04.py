@@ -20,25 +20,51 @@ def first_winning_num(boards, inputs):
         for board_idx, board in enumerate(boards):
             mark_number(board, num)
             if is_winning_board(board):
-                return num, board_idx
+                return num, boards[board_idx]
+
+
+def last_winning_board(boards, inputs):
+    input_idx = 0
+    while len(boards) > 0:
+        board_idx = 0
+        while board_idx < len(boards):
+            mark_number(boards[board_idx], inputs[input_idx])
+            if is_winning_board(boards[board_idx]):
+                board = boards.pop(board_idx)
+                if len(boards) == 0:
+                    return inputs[input_idx], board
+            else:
+                board_idx += 1
+        input_idx += 1
+
+
+def load_boards(data):
+    board, boards = [], []
+    counter = 2
+    while counter <= len(data):
+        if counter == len(data) or data[counter] == "\n":
+            boards.append(board)
+            board = []
+            counter += 1
+            continue
+        line = [num for num in data[counter].split()]
+        board.append(line)
+        counter += 1
+    return boards
 
 
 with open("inputs/day_04.txt", "r") as text_file:
     data = text_file.readlines()
     inputs = data[0].strip().split(",")
 
-board, boards = [], []
-counter = 2
-while counter <= len(data):
-    if counter == len(data) or data[counter] == "\n":
-        boards.append(board)
-        board = []
-        counter += 1
-        continue
-    line = [num for num in data[counter].split()]
-    board.append(line)
-    counter += 1
 
-num, board_idx = first_winning_num(boards, inputs)
-unmarked_num_sum = sum(sum(int(num) for num in row if num is not True) for row in boards[board_idx])
+boards = load_boards(data)
+num, board = first_winning_num(boards, inputs)
+unmarked_num_sum = sum(sum(int(num) for num in row if num is not True) for row in board)
+print(num, unmarked_num_sum, int(num) * int(unmarked_num_sum))
+
+
+boards = load_boards(data)
+num, board = last_winning_board(boards, inputs)
+unmarked_num_sum = sum(sum(int(num) for num in row if num is not True) for row in board)
 print(num, unmarked_num_sum, int(num) * int(unmarked_num_sum))
