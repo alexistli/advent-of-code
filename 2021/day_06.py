@@ -2,7 +2,6 @@ with open("inputs/day_06.txt", "r") as text_file:
     line = text_file.readline()
     data = [int(age) for age in line.strip().split(",")]
 
-print(data)
 
 fishes = list(data)
 counter = 80
@@ -17,5 +16,4 @@ while counter > 0:
     counter -= 1
     fishes.extend(fishlings)
 
-print(len(fishes))
-print(fishes)
+print("Solution for part 1:", len(fishes))
