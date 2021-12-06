@@ -13,7 +13,7 @@ def create_diagram(data):
             y_max = max(y_max, point[1])
     diagram = [["." for _ in range(x_max + 1)] for _ in range(y_max + 1)]
 
-    for line in data_1:
+    for line in data:
         x1, y1 = int(line[0][0]), int(line[0][1])
         cover_point(diagram, x1, y1)
         x2, y2 = int(line[1][0]), int(line[1][1])
@@ -39,11 +39,23 @@ with open("inputs/day_05.txt", "r") as text_file:
         data.append(data_row)
 
 
+# ======== Part 1 ========
 data_1 = [line for line in data if line[0][0] == line[1][0] or line[0][1] == line[1][1]]
-diagram_1 = create_diagram(data_1)
+diagram = create_diagram(data_1)
 
-for line in diagram_1:
-    print(''.join(str(point) for point in line))
+# for line in diagram:
+#     print(''.join(str(point) for point in line))
 
-number_points = sum(sum(1 for point in line if point != "." and point >= 2) for line in diagram_1)
-print(number_points)
+number_points = sum(sum(1 for point in line if point != "." and point >= 2) for line in diagram)
+print("Solution for part 1:", number_points)
+
+
+# ======== Part 2 ========
+data_2 = data
+diagram = create_diagram(data_2)
+
+# for line in diagram:
+#     print(''.join(str(point) for point in line))
+
+number_points = sum(sum(1 for point in line if point != "." and point >= 2) for line in diagram)
+print("Solution for part 1:", number_points)
