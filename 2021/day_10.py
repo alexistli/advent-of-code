@@ -15,7 +15,7 @@
 OPENING_CHARACTERS = '({[<'
 CLOSING_CHARACTERS = ')}]>'
 CHARACTERS_PAIRS = {opening: closing for opening, closing in zip(OPENING_CHARACTERS, CLOSING_CHARACTERS)}
-POINTS = {")": 3, "]": 57, "}": 1197, ">": 25137}
+SYNTAX_CHECKER_POINTS = {")": 3, "]": 57, "}": 1197, ">": 25137}
 
 
 with open('inputs/day_10.txt', mode='r') as f:
@@ -44,6 +44,9 @@ for line in data:
             break
     incomplete.append(line)
 
-total_points = sum(POINTS[character] for character in first_incorrect_closing)
+total_points = sum(SYNTAX_CHECKER_POINTS[character] for character in first_incorrect_closing)
 print("Solution for part 1:", total_points)
 
+
+# ================ Part 2 ================
+AUTOCOMPLETE_POINTS = {")": 1, "]": 2, "}": 3, ">": 4}
