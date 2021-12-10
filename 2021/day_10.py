@@ -42,11 +42,33 @@ for line in data:
             first_incorrect_closing.append(character)
             corrupted.append(line)
             break
-    incomplete.append(line)
+    if line not in corrupted:
+        incomplete.append(line)
 
 total_points = sum(SYNTAX_CHECKER_POINTS[character] for character in first_incorrect_closing)
 print("Solution for part 1:", total_points)
 
 
 # ================ Part 2 ================
+
 AUTOCOMPLETE_POINTS = {")": 1, "]": 2, "}": 3, ">": 4}
+
+scores = []
+for line in incomplete:
+    stack = list(line[0])
+    # Process line
+    for character in line[1:]:
+        if character in OPENING_CHARACTERS:
+            stack.append(character)
+        elif character == CHARACTERS_PAIRS[stack[-1]]:
+            stack.pop()
+    # Process the characters needing completion
+    line_score = 0
+    for character in reversed(stack):
+        matching_character = CHARACTERS_PAIRS[character]
+        line_score = line_score * 5 + AUTOCOMPLETE_POINTS[matching_character]
+    scores.append(line_score)
+
+scores.sort()
+middle_score = scores[len(scores) // 2]
+print("Solution for part 2:", middle_score)
