@@ -1,5 +1,5 @@
 def load_day_input():
-    with open("2022/day_01/input.txt", "r") as f:
+    with open("aoc_2022/day_01/input.txt", "r") as f:
         data = f.readlines()
     return data
 
