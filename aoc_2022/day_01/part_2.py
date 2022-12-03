@@ -1,8 +1,9 @@
-from aoc_2022.day_01.part_1 import get_calories_by_elf, load_day_input
+from aoc_2022.day_01.part_1 import get_calories_by_elf
+from aoc_2022.helpers import load_day_input
 
 
 def main():
-    data = load_day_input()
+    data = load_day_input("aoc_2022/day_01/input.txt")
     calories_grouped_by_elf = get_calories_by_elf(data)
     summed_elf_colories = [
         sum(elf_calories) for elf_calories in calories_grouped_by_elf
