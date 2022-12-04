@@ -7,5 +7,5 @@ My personal solutions for the Advent of Code editions:
 ## How to execute a script
 
 ```
-python -m 2022.day_01.part_1
+python -m aoc_2022.day_01.part_1
 ```
