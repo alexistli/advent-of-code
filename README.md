@@ -7,6 +7,5 @@ My personal solutions for the Advent of Code editions:
 ## How to execute a script
 
 ```
-source .venv/bin/activate
 python -m 2022.day_01.part_1
 ```
