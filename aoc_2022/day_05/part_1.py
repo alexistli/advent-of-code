@@ -42,7 +42,6 @@ def main():
 
     queues = [deque(stack) for stack in stacks]
     for instruction in procedure:
-
         execute_instruction(queues, instruction)
 
     print("".join([queue[0].strip("[").strip("]") for queue in queues]))
