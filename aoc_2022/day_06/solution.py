@@ -11,22 +11,26 @@ def parse_data(puzzle_input):
     return puzzle_input[0]
 
 
-def part1(data):
-    """Solve part 1."""
-    marker_size = 4
+def get_marker_position(data, marker_size):
+    """Return the marker's last character position in a data stream.
+
+    Marker is a sequence of `marker_size` characters all different"""
     for i in range(0, len(data) - marker_size):
         potential_marker = data[i : i + marker_size]
         if len(set(potential_marker)) == marker_size:
             return i + marker_size
+
+
+def part1(data):
+    """Solve part 1."""
+    marker_size = 4
+    return get_marker_position(data, marker_size)
 
 
 def part2(data):
     """Solve part 2."""
     marker_size = 14
-    for i in range(0, len(data) - marker_size):
-        potential_marker = data[i : i + marker_size]
-        if len(set(potential_marker)) == marker_size:
-            return i + marker_size
+    return get_marker_position(data, marker_size)
 
 
 def solve(puzzle_input):
