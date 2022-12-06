@@ -13,14 +13,20 @@ def parse_data(puzzle_input):
 
 def part1(data):
     """Solve part 1."""
-    for i in range(0, len(data) - 4):
-        potential_marker = data[i : i + 4]
-        if len(set(potential_marker)) == 4:
-            return i + 4
+    marker_size = 4
+    for i in range(0, len(data) - marker_size):
+        potential_marker = data[i : i + marker_size]
+        if len(set(potential_marker)) == marker_size:
+            return i + marker_size
 
 
 def part2(data):
     """Solve part 2."""
+    marker_size = 14
+    for i in range(0, len(data) - marker_size):
+        potential_marker = data[i : i + marker_size]
+        if len(set(potential_marker)) == marker_size:
+            return i + marker_size
 
 
 def solve(puzzle_input):
