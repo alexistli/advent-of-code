@@ -8,10 +8,15 @@ import pathlib
 
 def parse_data(puzzle_input):
     """Parse input."""
+    return puzzle_input[0]
 
 
 def part1(data):
     """Solve part 1."""
+    for i in range(0, len(data) - 4):
+        potential_marker = data[i : i + 4]
+        if len(set(potential_marker)) == 4:
+            return i + 4
 
 
 def part2(data):
