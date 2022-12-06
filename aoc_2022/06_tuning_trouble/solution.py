@@ -1,4 +1,4 @@
-"""AoC {day}, {year}: {puzzle_name}."""
+"""AoC 6, 2022: Tuning Trouble."""
 
 
 from aoc_2022.helpers import load_day_input
