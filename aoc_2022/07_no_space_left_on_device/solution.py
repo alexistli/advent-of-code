@@ -20,18 +20,39 @@ class Directory:
         self.parent: Directory = parent
         self.size = 0
 
+    def add_file(self, file: File) -> None:
+        if file not in self:
+            self.files.append(file)
+
+    def add_directory(self, directory: "Directory"):
+        if directory not in self:
+            self.directories.append(directory)
+
     def get_size_list(self) -> list[int]:
         subdirs_sizes = []
         for d in self.directories:
-            subdirs_sizes.extend(d.get_size_list())
+            subdirs_sizes += d.get_size_list()
 
-        files_sizes = []
+        files_size = 0
         for f in self.files:
-            files_sizes += [f.size]
+            files_size += f.size
 
-        self.size = sum(subdirs_sizes) + sum(files_sizes)
+        self.size = sum(subdirs_sizes) + files_size
 
         return [self.size] + subdirs_sizes
+
+    def __contains__(self, obj):
+        if isinstance(obj, File):
+            for file in self.files:
+                if obj.name == file.name:
+                    print("true")
+                    return True
+        if isinstance(obj, Directory):
+            for directory in self.directories:
+                if obj.name == directory.name:
+                    print("true")
+                    return True
+        return False
 
 
 def parse_data(puzzle_input: list[str]) -> list[str]:
@@ -47,7 +68,7 @@ def parse_commands(commands: list[str]):
             case ["$", "cd", "/"]:
                 current_node = root
             case ["$", "cd", ".."]:
-                current_node = current_node.parent
+                current_node = current_node.parent or root
             case ["$", "cd", directory_name]:
                 current_node = next(
                     d for d in current_node.directories if d.name == directory_name
@@ -55,9 +76,9 @@ def parse_commands(commands: list[str]):
             case ["$", "ls"]:
                 pass
             case ["dir", directory_name]:
-                current_node.directories.append(Directory(directory_name, current_node))
+                current_node.add_directory(Directory(directory_name, current_node))
             case [size, file_name]:
-                current_node.files.append(File(file_name, int(size)))
+                current_node.add_file(File(file_name, int(size)))
     return root
 
 
