@@ -19,6 +19,7 @@ class Directory:
         self.files: list[File] = []
         self.parent: Directory = parent
         self.size = 0
+        self.subdirs_sizes = []
 
     def add_file(self, file: File) -> None:
         if file not in self:
@@ -28,18 +29,11 @@ class Directory:
         if directory not in self:
             self.directories.append(directory)
 
-    def get_size_list(self) -> list[int]:
-        subdirs_sizes = []
-        for d in self.directories:
-            subdirs_sizes += d.get_size_list()
-
-        files_size = 0
-        for f in self.files:
-            files_size += f.size
-
-        self.size = sum(subdirs_sizes) + files_size
-
-        return [self.size] + subdirs_sizes
+    def compute_size(self):
+        subdirs_sizes = sum([d.compute_size() for d in self.directories])
+        files_size = sum([f.size for f in self.files])
+        self.size = subdirs_sizes + files_size
+        return self.size
 
     def __contains__(self, obj):
         if isinstance(obj, File):
@@ -82,11 +76,19 @@ def parse_commands(commands: list[str]):
     return root
 
 
+def get_all_directories_sizes(root: Directory, directory_sizes: list) -> None:
+    for directory in root.directories:
+        directory_sizes.append(directory.size)
+        get_all_directories_sizes(directory, directory_sizes)
+
+
 def part1(data: list[str]) -> int:
     """Solve part 1."""
     root = parse_commands(data)
-    sizes = root.get_size_list()
-    low_sizes = [size for size in sizes if size <= 100000]
+    root.compute_size()
+    directory_sizes = []
+    get_all_directories_sizes(root, directory_sizes)
+    low_sizes = [size for size in directory_sizes if size <= 100000]
     res = sum(low_sizes)
     return res
 
