@@ -1,4 +1,4 @@
-"""AoC {day}, {year}: {puzzle_name}."""
+"""AoC 7, 2022: No Space Left On Device."""
 
 
 from aoc_2022.helpers import load_day_input
