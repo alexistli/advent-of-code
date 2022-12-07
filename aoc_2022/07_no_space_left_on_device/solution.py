@@ -93,8 +93,24 @@ def part1(data: list[str]) -> int:
     return res
 
 
-def part2(data):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
+    AVAILABLE_ON_DISK = 70000000
+    NEEDED_SPACE = 30000000
+
+    root = parse_commands(data)
+    root.compute_size()
+    directory_sizes = []
+    get_all_directories_sizes(root, directory_sizes)
+
+    unused_space = AVAILABLE_ON_DISK - root.size
+    space_to_reclaim = NEEDED_SPACE - unused_space
+
+    sizes_above_space_to_reclaim = [
+        size for size in directory_sizes if size >= space_to_reclaim
+    ]
+    res = min(sizes_above_space_to_reclaim)
+    return res
 
 
 def solve(puzzle_input):
