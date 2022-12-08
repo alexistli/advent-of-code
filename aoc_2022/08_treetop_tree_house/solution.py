@@ -4,6 +4,7 @@
 from aoc_2022.helpers import load_day_input
 
 import pathlib
+import math
 
 
 def parse_data(puzzle_input: list[str]) -> list[str]:
@@ -41,6 +42,55 @@ def check_tree_visibility(i: int, j: int, tree: int, data: list[str]):
     return False
 
 
+def get_scenic_score(i: int, j: int, tree: int, data: list[str]):
+    viewing_distances = []
+
+    row = get_row(i, j, data)
+    leftmost = row[:j]
+    rightmost = row[j + 1 :]
+    distance = 0
+    for l in reversed(leftmost):
+        distance += 1
+        if l >= tree:
+            break
+    if distance == 0:
+        return 0
+    viewing_distances.append(distance)
+
+    distance = 0
+    for l in rightmost:
+        distance += 1
+        if l >= tree:
+            break
+    if distance == 0:
+        return 0
+    viewing_distances.append(distance)
+
+    col = get_column(i, j, data)
+    upper = col[:i]
+    lower = col[i + 1 :]
+
+    distance = 0
+    for l in reversed(upper):
+        distance += 1
+        if l >= tree:
+            break
+    if distance == 0:
+        return 0
+    viewing_distances.append(distance)
+
+    distance = 0
+    for l in lower:
+        distance += 1
+        if l >= tree:
+            break
+    if distance == 0:
+        return 0
+    viewing_distances.append(distance)
+
+    return math.prod(viewing_distances)
+
+
 def part1(data):
     """Solve part 1."""
     nb_visible_trees = 0
@@ -53,6 +103,13 @@ def part1(data):
 
 def part2(data):
     """Solve part 2."""
+    best_scenic_score = 0
+    for i, row in enumerate(data):
+        for j, tree in enumerate(row):
+            best_scenic_score = max(
+                best_scenic_score, get_scenic_score(i, j, tree, data)
+            )
+    return best_scenic_score
 
 
 def solve(puzzle_input):
