@@ -8,10 +8,65 @@ import pathlib
 
 def parse_data(puzzle_input):
     """Parse input."""
+    return [row.strip("\n") for row in puzzle_input]
+
+
+def signum(x):
+    return 1 if (x > 0) else -1 if (x < 0) else 0
+
+
+def catchup_with_head(
+    head: tuple[int, int], tail: tuple[int, int], bridge: list[list[str]]
+) -> None:
+    relative_position = (head[0] - tail[0], head[1] - tail[1])
+
+    match relative_position:
+        case [i, j] if abs(i) < 2 and abs(j) < 2:
+            pass
+        case [i, j] if i == 0 and abs(j) == 2:
+            tail[1] += 1 * signum(j)
+            bridge[tail[0]][tail[1]] = "#"
+        case [i, j] if j == 0 and abs(i) == 2:
+            tail[0] += 1 * signum(i)
+            bridge[tail[0]][tail[1]] = "#"
+        case [i, j]:
+            tail[0] += 1 * signum(i)
+            tail[1] += 1 * signum(j)
+            bridge[tail[0]][tail[1]] = "#"
 
 
 def part1(data):
     """Solve part 1."""
+    PUZZLE_SIZE = 3000
+    bridge = [[" "] * PUZZLE_SIZE for _ in range(PUZZLE_SIZE)]
+    start = [PUZZLE_SIZE // 2 + 6, PUZZLE_SIZE // 2 - 6]
+    bridge[start[0]][start[1]] = "s"
+    head = list(start)
+    tail = list(start)
+
+    for row in data:
+        match row.split():
+            case ["U", steps]:
+                for _ in range(int(steps)):
+                    head[0] -= 1
+                    catchup_with_head(head, tail, bridge)
+            case ["R", steps]:
+                for s in range(int(steps)):
+                    head[1] += 1
+                    catchup_with_head(head, tail, bridge)
+            case ["D", steps]:
+                for s in range(int(steps)):
+                    head[0] += 1
+                    catchup_with_head(head, tail, bridge)
+            case ["L", steps]:
+                for s in range(int(steps)):
+                    head[1] -= 1
+                    catchup_with_head(head, tail, bridge)
+
+    nb_visited_positions = 0
+    for row in bridge:
+        nb_visited_positions += len([pos for pos in row if pos in "#s"])
+    return nb_visited_positions
 
 
 def part2(data):
