@@ -13,8 +13,34 @@ def parse_data(puzzle_input: list[str]) -> list[str]:
     return [row.strip("\n") for row in puzzle_input]
 
 
+def compute_new_register(register: int, v: int) -> int:
+    register += v
+    return register
+
+
+def run_cycle(cycle: int, register: int, v: int, signal_strengths: list[int]):
+    if cycle == 20 or (cycle > 20 and (cycle - 20) % 40 == 0):
+        signal_strengths.append(cycle * register)
+    if v:
+        register = compute_new_register(register, v)
+    cycle += 1
+    return register, cycle
+
+
 def part1(data: list[str]):
     """Solve part 1."""
+    register = 1
+    signal_strengths = []
+    cycle = 1
+    for row in data:
+        match row.split():
+            case ["noop"]:
+                register, cycle = run_cycle(cycle, register, 0, signal_strengths)
+            case ["addx", v]:
+                register, cycle = run_cycle(cycle, register, 0, signal_strengths)
+                register, cycle = run_cycle(cycle, register, int(v), signal_strengths)
+
+    return sum(signal_strengths)
 
 
 def part2(data: list[str]):
