@@ -43,8 +43,31 @@ def part1(data: list[str]):
     return sum(signal_strengths)
 
 
+def run_crt_cycle(cycle: int, register: int, v: int, crt_screen: list[int]):
+    row, column = (cycle - 1) // 40, (cycle - 1) % 40
+    if column in range(register - 1, register + 2):
+        crt_screen[row][column] = "#"
+    if v:
+        register = compute_new_register(register, v)
+    cycle += 1
+    return register, cycle
+
+
 def part2(data: list[str]):
     """Solve part 2."""
+    register = 1
+    crt_screen = [["."] * 40 for _ in range(6)]
+    cycle = 1
+    for row in data:
+        match row.split():
+            case ["noop"]:
+                register, cycle = run_crt_cycle(cycle, register, 0, crt_screen)
+            case ["addx", v]:
+                register, cycle = run_crt_cycle(cycle, register, 0, crt_screen)
+                register, cycle = run_crt_cycle(cycle, register, int(v), crt_screen)
+
+    for row in crt_screen:
+        print(row)
 
 
 def solve(puzzle_input: list[str]):
