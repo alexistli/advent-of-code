@@ -34,6 +34,9 @@ class Monkey:
     def relieve_worry_level(self) -> None:
         self.current_item = self.current_item // 3
 
+    def relieve_by_common_denominator(self, common_denominator) -> None:
+        self.current_item = self.current_item % common_denominator
+
     def test_worry_level(self) -> int:
         if self.current_item % self.test[0] == 0:
             return self.test[1]
@@ -95,6 +98,26 @@ def part1(data: list[str]):
 
 def part2(data: list[str]):
     """Solve part 2."""
+    monkeys: list[Monkey] = []
+    for i in range(0, len(data), 7):
+        monkey_note = data[i : i + 7]
+        monkey = parse_monkey_note(monkey_note)
+        monkeys.append(monkey)
+
+    common_denominator = math.prod([m.test[0] for m in monkeys])
+
+    for i in range(10000):
+        for monkey in monkeys:
+            while monkey.starting_items:
+                monkey.inspect_item()
+                monkey.relieve_by_common_denominator(common_denominator)
+                monkey.throw_item(monkeys)
+
+    most_active_monkeys = sorted(
+        monkeys, key=lambda m: m.nb_inspected_items, reverse=True
+    )[:2]
+    monkey_business = math.prod([m.nb_inspected_items for m in most_active_monkeys])
+    return monkey_business
 
 
 def solve(puzzle_input: list[str]):
