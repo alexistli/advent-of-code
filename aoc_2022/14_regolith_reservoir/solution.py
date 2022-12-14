@@ -1,4 +1,4 @@
-"""AoC 14, 2022: {puzzle_name}."""
+"""AoC 14, 2022: Regolith Reservoir."""
 
 
 from aoc_2022.helpers import load_day_input
