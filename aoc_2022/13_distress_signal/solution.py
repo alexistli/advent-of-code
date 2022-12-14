@@ -46,6 +46,36 @@ def part1(data: list[str]):
 
 def part2(data: list[str]):
     """Solve part 2."""
+    divider_packets = [[[2]], [[6]]]
+    pairs = [data[i : i + 2] for i in range(0, len(data), 3)]
+    sorted_packets = []
+    for raw_pair in pairs:
+        pair = [eval(raw_pair[0]), eval(raw_pair[1])]
+        if check_pair_right_order(pair):
+            sorted_packets.extend(pair)
+        else:
+            sorted_packets.extend([pair[1], pair[0]])
+
+    sorted_packets += divider_packets
+
+    is_sorted = None
+    while not is_sorted:
+        is_sorted = True
+        for i in range(len(sorted_packets) - 1):
+            pair = sorted_packets[i : i + 2]
+            if not check_pair_right_order(pair):
+                sorted_packets[i], sorted_packets[i + 1] = (
+                    sorted_packets[i + 1],
+                    sorted_packets[i],
+                )
+                is_sorted = False
+
+    divider_packet_indexes = (
+        sorted_packets.index(divider_packets[0]) + 1,
+        sorted_packets.index(divider_packets[1]) + 1,
+    )
+
+    return divider_packet_indexes[0] * divider_packet_indexes[1]
 
 
 def solve(puzzle_input: list[str]):
