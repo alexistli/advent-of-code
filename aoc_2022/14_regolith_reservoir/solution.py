@@ -7,14 +7,100 @@ import pathlib
 
 CWD = pathlib.Path(__file__).parent
 
+SAND_ORIGIN = (500, 0)
+X_MAX = 600
+Y_MAX = 180
+
 
 def parse_data(puzzle_input: list[str]) -> list[str]:
     """Parse input."""
     return [row.strip("\n") for row in puzzle_input]
 
 
+def generate_path_between_two_points(start: tuple[int, int], end: tuple[int, int]):
+    x_start = int(start.split(",")[0])
+    x_end = int(end.split(",")[0])
+
+    y_start = int(start.split(",")[1])
+    y_end = int(end.split(",")[1])
+
+    if x_start != x_end:
+        missing_points = {(i, y_end) for i in range(*sorted((x_start, x_end)))}
+    else:
+        missing_points = {(x_end, j) for j in range(*sorted((y_start, y_end)))}
+    return missing_points | {
+        (x_start, y_start),
+        (x_end, y_end),
+    }
+
+
+def generate_path_coordinates(points: list[str]):
+    paths = []
+    for index, coordinates in enumerate(points[:-1]):
+        path = generate_path_between_two_points(coordinates, points[index + 1])
+        paths.append(path)
+
+    return paths
+
+
+def create_drawing_from_scan(data: list[str]):
+    drawing = [["."] * X_MAX for _ in range(Y_MAX)]
+
+    paths = [
+        generate_path_coordinates(path_points.split(" -> ")) for path_points in data
+    ]
+
+    lowest_path_point = SAND_ORIGIN[1]
+
+    for path in paths:
+        for path_line in path:
+            for path_point in path_line:
+                x, y = path_point
+                drawing[y][x] = "#"
+                if y > lowest_path_point:
+                    lowest_path_point = y
+
+    return drawing, lowest_path_point
+
+
+def insert_grain(drawing):
+    grain = SAND_ORIGIN
+    is_bottom = False
+    while not is_bottom:
+        x, y = grain
+        if y + 1 == Y_MAX:
+            is_bottom = True
+            return x, y + 1
+        elif drawing[y + 1][x] == ".":
+            grain = x, y + 1
+        elif drawing[y + 1][x - 1] == ".":
+            grain = x - 1, y + 1
+        elif drawing[y + 1][x + 1] == ".":
+            grain = x + 1, y + 1
+        else:
+            drawing[y][x] = "o"
+            is_bottom = True
+    return x, y
+
+
+def simulate_falling_sand(drawing: list[list[str]], lowest_path_point):
+    steps = 0
+    is_flowing_into_abyss = False
+    while not is_flowing_into_abyss:
+        final_grain_pos = insert_grain(drawing)
+        if final_grain_pos[1] > lowest_path_point:
+            is_flowing_into_abyss = True
+            break
+        steps += 1
+
+    return steps
+
+
 def part1(data: list[str]):
     """Solve part 1."""
+    drawing, lowest_path_point = create_drawing_from_scan(data)
+    steps = simulate_falling_sand(drawing, lowest_path_point)
+    return steps
 
 
 def part2(data: list[str]):
@@ -31,9 +117,6 @@ def solve(puzzle_input: list[str]):
 if __name__ == "__main__":
     examples = solve(load_day_input(CWD / "example.txt"))
     print("Examples:\n\t{}".format("\n\t".join(str(e) for e in examples)))
-
-    # examples_2 = solve(load_day_input(CWD / "example2.txt"))
-    # print("Examples 2:\n\t{}".format("\n\t".join(str(e) for e in examples_2)))
 
     solutions = solve(load_day_input(CWD / "input.txt"))
     print("Solutions:\n\t{}".format("\n\t".join(str(s) for s in solutions)))
