@@ -8,7 +8,7 @@ import pathlib
 CWD = pathlib.Path(__file__).parent
 
 SAND_ORIGIN = (500, 0)
-X_MAX = 600
+X_MAX = 800
 Y_MAX = 180
 
 
@@ -63,12 +63,13 @@ def create_drawing_from_scan(data: list[str]):
     return drawing, lowest_path_point
 
 
-def insert_grain(drawing):
+def insert_grain(drawing, max_depth):
     grain = SAND_ORIGIN
     is_bottom = False
     while not is_bottom:
         x, y = grain
-        if y + 1 == Y_MAX:
+        if y + 1 == max_depth:
+            drawing[y][x] = "o"
             is_bottom = True
             return x, y + 1
         elif drawing[y + 1][x] == ".":
@@ -83,15 +84,17 @@ def insert_grain(drawing):
     return x, y
 
 
-def simulate_falling_sand(drawing: list[list[str]], lowest_path_point):
+def simulate_falling_sand(
+    drawing: list[list[str]], lowest_path_point, max_depth, stop_func
+):
     steps = 0
-    is_flowing_into_abyss = False
-    while not is_flowing_into_abyss:
-        final_grain_pos = insert_grain(drawing)
-        if final_grain_pos[1] > lowest_path_point:
-            is_flowing_into_abyss = True
-            break
-        steps += 1
+    is_finished = False
+    while not is_finished:
+        final_grain_pos = insert_grain(drawing, max_depth)
+        if stop_func(final_grain_pos):
+            is_finished = True
+        else:
+            steps += 1
 
     return steps
 
@@ -99,12 +102,25 @@ def simulate_falling_sand(drawing: list[list[str]], lowest_path_point):
 def part1(data: list[str]):
     """Solve part 1."""
     drawing, lowest_path_point = create_drawing_from_scan(data)
-    steps = simulate_falling_sand(drawing, lowest_path_point)
+    steps = simulate_falling_sand(
+        drawing,
+        lowest_path_point,
+        max_depth=Y_MAX,
+        stop_func=lambda x: x[1] > lowest_path_point,
+    )
     return steps
 
 
 def part2(data: list[str]):
     """Solve part 2."""
+    drawing, lowest_path_point = create_drawing_from_scan(data)
+    steps = simulate_falling_sand(
+        drawing,
+        lowest_path_point,
+        max_depth=lowest_path_point + 2,
+        stop_func=lambda x: x[1] == 0,
+    )
+    return steps + 1
 
 
 def solve(puzzle_input: list[str]):
