@@ -1,27 +1,25 @@
 """AoC {day}, {year}: {puzzle_name}."""
 
 
-from aoc_2022.helpers import get_input
-
 import pathlib
+from typing import Iterator
+
+
+from aoc_2022.helpers import get_input, parse_data
+
 
 CWD = pathlib.Path(__file__).parent
 
 
-def parse_data(puzzle_input: list[str]) -> list[str]:
-    """Parse input."""
-    return [row.strip("\n") for row in puzzle_input]
-
-
-def part1(data: list[str]):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
 
 
-def part2(data: list[str]):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
 
 
-def solve(puzzle_input: list[str]):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)
