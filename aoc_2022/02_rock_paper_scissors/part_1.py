@@ -1,5 +1,5 @@
 from collections import namedtuple
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 
 Shape = namedtuple("Shape", "name score")
 
@@ -33,7 +33,7 @@ def get_outcome_score(opponent_shape: Shape, my_shape: Shape):
 
 
 def main():
-    data = load_day_input("aoc_2022/day_02/input.txt")
+    data = get_input("aoc_2022/day_02/input.txt")
 
     total_score = 0
     for row in data:

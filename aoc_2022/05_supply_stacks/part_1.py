@@ -2,7 +2,7 @@ from pathlib import Path
 from collections import deque
 
 
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 
 
 def parse_puzzle(data: list):
@@ -37,7 +37,7 @@ def execute_instruction(queues: list[deque], instruction):
 
 
 def main():
-    data = load_day_input(Path(__file__).parent / "input.txt")
+    data = get_input(Path(__file__).parent / "input.txt")
     stacks, procedure = parse_puzzle(data)
 
     queues = [deque(stack) for stack in stacks]

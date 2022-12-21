@@ -1,7 +1,7 @@
 """AoC 14, 2022: Regolith Reservoir."""
 
 
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 
 import pathlib
 
@@ -131,8 +131,8 @@ def solve(puzzle_input: list[str]):
 
 
 if __name__ == "__main__":
-    examples = solve(load_day_input(CWD / "example.txt"))
+    examples = solve(get_input(CWD / "example.txt"))
     print("Examples:\n\t{}".format("\n\t".join(str(e) for e in examples)))
 
-    solutions = solve(load_day_input(CWD / "input.txt"))
+    solutions = solve(get_input(CWD / "input.txt"))
     print("Solutions:\n\t{}".format("\n\t".join(str(s) for s in solutions)))

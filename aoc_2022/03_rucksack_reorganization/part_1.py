@@ -1,4 +1,4 @@
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 import string
 
 
@@ -23,7 +23,7 @@ def compute_item_priority(item: str):
 
 
 def main():
-    data = [row.strip("\n") for row in load_day_input("aoc_2022/day_03/input.txt")]
+    data = [row.strip("\n") for row in get_input("aoc_2022/day_03/input.txt")]
     duplicate_compartment_items = []
     for row in data:
         compartment_1_items, compartment_2_items = split_compartments(row)

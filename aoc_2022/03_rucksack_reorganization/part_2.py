@@ -1,4 +1,4 @@
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 from aoc_2022.day_03.part_1 import PRIORITY_MAPPING
 from collections import Counter
 
@@ -19,7 +19,7 @@ def get_item_common_among_triplet(elf_triplet):
 
 
 def main():
-    data = [row.strip("\n") for row in load_day_input("aoc_2022/day_03/input.txt")]
+    data = [row.strip("\n") for row in get_input("aoc_2022/day_03/input.txt")]
     elf_triplets = chunk_triplets(data)
     total_priority = 0
     for elf_triplet in elf_triplets:

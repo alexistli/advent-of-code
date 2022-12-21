@@ -1,7 +1,7 @@
 """AoC 8, 2022: Treetop Tree House."""
 
 
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 
 import pathlib
 import math
@@ -120,10 +120,10 @@ def solve(puzzle_input):
 
 
 if __name__ == "__main__":
-    examples = solve(load_day_input(pathlib.Path(__file__).parent / "example.txt"))
+    examples = solve(get_input(pathlib.Path(__file__).parent / "example.txt"))
     print("Examples:\n\t{}".format("\n\t".join(str(solution) for solution in examples)))
 
-    solutions = solve(load_day_input(pathlib.Path(__file__).parent / "input.txt"))
+    solutions = solve(get_input(pathlib.Path(__file__).parent / "input.txt"))
     print(
         "Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions))
     )

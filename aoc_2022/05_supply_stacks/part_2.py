@@ -3,7 +3,7 @@ from collections import deque
 from aoc_2022.day_05.part_1 import parse_instruction, parse_puzzle
 
 
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 
 
 def execute_instruction(queues: list[deque], instruction):
@@ -18,7 +18,7 @@ def execute_instruction(queues: list[deque], instruction):
 
 
 def main():
-    data = load_day_input(Path(__file__).parent / "input.txt")
+    data = get_input(Path(__file__).parent / "input.txt")
     stacks, procedure = parse_puzzle(data)
 
     queues = [deque(stack) for stack in stacks]

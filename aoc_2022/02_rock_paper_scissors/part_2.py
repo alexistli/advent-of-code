@@ -1,4 +1,4 @@
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 from aoc_2022.day_02.part_1 import A, B, C, get_shape_score
 
 
@@ -25,7 +25,7 @@ def get_shape_score(opponent_shape, outcome):
 
 
 def main():
-    data = load_day_input("aoc_2022/day_02/input.txt")
+    data = get_input("aoc_2022/day_02/input.txt")
 
     total_score = 0
     for row in data:

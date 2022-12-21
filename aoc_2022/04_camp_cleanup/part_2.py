@@ -1,4 +1,4 @@
-from aoc_2022.helpers import load_day_input
+from aoc_2022.helpers import get_input
 from aoc_2022.day_04.part_1 import parse_elf_pairs_sections
 
 
@@ -24,7 +24,7 @@ def compute_number_overlapping_sections(elf_pairs_sections):
 
 
 def main():
-    data = load_day_input("aoc_2022/day_04/input.txt")
+    data = get_input("aoc_2022/day_04/input.txt")
     elf_pairs_sections = parse_elf_pairs_sections(data)
     nb_overlapping_sections = compute_number_overlapping_sections(elf_pairs_sections)
     print(nb_overlapping_sections)
