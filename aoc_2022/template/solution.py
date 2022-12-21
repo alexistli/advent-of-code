@@ -32,8 +32,5 @@ if __name__ == "__main__":
     examples = solve(load_day_input(CWD / "example.txt"))
     print("Examples:\n\t{}".format("\n\t".join(str(e) for e in examples)))
 
-    # examples_2 = solve(load_day_input(CWD / "example2.txt"))
-    # print("Examples 2:\n\t{}".format("\n\t".join(str(e) for e in examples_2)))
-
     solutions = solve(load_day_input(CWD / "input.txt"))
     print("Solutions:\n\t{}".format("\n\t".join(str(s) for s in solutions)))
