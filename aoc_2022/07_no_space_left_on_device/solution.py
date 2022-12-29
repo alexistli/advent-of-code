@@ -1,14 +1,13 @@
 """AoC 7, 2022: No Space Left On Device."""
 
-
-from typing import Iterator
-from aoc_2022.helpers import get_input, parse_data
-
 import pathlib
+from typing import Iterator
+
+from aoc_2022.helpers import get_input, parse_data
 
 
 class File:
-    def __init__(self, name, size) -> None:
+    def __init__(self, name: str, size: int) -> None:
         self.name = name
         self.size = size
 
@@ -26,17 +25,17 @@ class Directory:
         if file not in self:
             self.files.append(file)
 
-    def add_directory(self, directory: "Directory"):
+    def add_directory(self, directory: "Directory") -> None:
         if directory not in self:
             self.directories.append(directory)
 
-    def compute_size(self):
+    def compute_size(self) -> int:
         subdirs_sizes = sum([d.compute_size() for d in self.directories])
         files_size = sum([f.size for f in self.files])
         self.size = subdirs_sizes + files_size
         return self.size
 
-    def __contains__(self, obj):
+    def __contains__(self, obj) -> bool:
         if isinstance(obj, File):
             for file in self.files:
                 if obj.name == file.name:
@@ -50,7 +49,7 @@ class Directory:
         return False
 
 
-def parse_commands(commands: list[str]):
+def build_tree(commands: list[str]) -> Directory:
     root = Directory("/", None)
     current_node = root
     for command in commands:
@@ -72,21 +71,20 @@ def parse_commands(commands: list[str]):
     return root
 
 
-def get_all_directories_sizes(root: Directory, directory_sizes: list) -> None:
+def record_directories_sizes(root: Directory, directory_sizes: list) -> None:
     for directory in root.directories:
         directory_sizes.append(directory.size)
-        get_all_directories_sizes(directory, directory_sizes)
+        record_directories_sizes(directory, directory_sizes)
 
 
 def part1(data: list[str]) -> int:
     """Solve part 1."""
-    root = parse_commands(data)
+    root = build_tree(data)
     root.compute_size()
     directory_sizes = []
-    get_all_directories_sizes(root, directory_sizes)
+    record_directories_sizes(root, directory_sizes)
     low_sizes = [size for size in directory_sizes if size <= 100000]
-    res = sum(low_sizes)
-    return res
+    return sum(low_sizes)
 
 
 def part2(data: list[str]) -> int:
@@ -94,10 +92,10 @@ def part2(data: list[str]) -> int:
     AVAILABLE_ON_DISK = 70000000
     NEEDED_SPACE = 30000000
 
-    root = parse_commands(data)
+    root = build_tree(data)
     root.compute_size()
     directory_sizes = []
-    get_all_directories_sizes(root, directory_sizes)
+    record_directories_sizes(root, directory_sizes)
 
     unused_space = AVAILABLE_ON_DISK - root.size
     space_to_reclaim = NEEDED_SPACE - unused_space
@@ -105,8 +103,7 @@ def part2(data: list[str]) -> int:
     sizes_above_space_to_reclaim = [
         size for size in directory_sizes if size >= space_to_reclaim
     ]
-    res = min(sizes_above_space_to_reclaim)
-    return res
+    return min(sizes_above_space_to_reclaim)
 
 
 def solve(puzzle_input: list[str]) -> Iterator[int]:
