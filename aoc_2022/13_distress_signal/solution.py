@@ -9,7 +9,7 @@ from aoc_2022.helpers import get_input, parse_data
 CWD = pathlib.Path(__file__).parent
 
 
-def check_pair_right_order(pair):
+def check_pair_right_order(pair: tuple[list[int], list[int]]) -> bool | None:
     is_right_order = None
     match pair:
         case [left, right] if left == right:
