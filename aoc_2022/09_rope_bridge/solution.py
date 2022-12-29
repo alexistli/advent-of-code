@@ -1,13 +1,12 @@
 """AoC 9, 2022: Rope Bridge."""
 
-
+import pathlib
 from typing import Iterator
+
 from aoc_2022.helpers import get_input, parse_data
 
-import pathlib
 
-
-def signum(x):
+def signum(x: int) -> int:
     return 1 if (x > 0) else -1 if (x < 0) else 0
 
 
