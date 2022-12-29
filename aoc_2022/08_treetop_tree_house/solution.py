@@ -1,90 +1,42 @@
 """AoC 8, 2022: Treetop Tree House."""
 
 
+import math
+import pathlib
 from typing import Iterator
+
+
 from aoc_2022.helpers import get_input, parse_data
 
-import pathlib
-import math
+
+def get_row(i: int, _j: int, data: list[str]) -> str:
+    return data[i]
 
 
-def get_row(i, _j, data):
-    row = data[i]
-    return row
+def get_column(i: int, j: int, data: list[str]) -> str:
+    return get_row(j, i, list(zip(*data)))
 
 
-def get_column(i, j, data):
-    col = get_row(j, i, list(zip(*data)))
-    return col
+def check_tree_visibility_from_trees(tree: str, trees: list[str]) -> bool:
+    if not trees:
+        return True
+    if max(trees) < tree:
+        return True
 
 
-def check_tree_visibility(i: int, j: int, tree: int, data: list[str]):
+def check_tree_visibility(i: int, j: int, tree: str, data: list[str]) -> bool:
     row = get_row(i, j, data)
-    leftmost = row[:j]
-    rightmost = row[j + 1 :]
-    if not (leftmost and rightmost):
-        return True
-    if max(leftmost) < tree or max(rightmost) < tree:
-        return True
+    left, right = row[:j], row[j + 1 :]
 
     col = get_column(i, j, data)
-    upper = col[:i]
-    lower = col[i + 1 :]
-    if not (upper and lower):
-        return True
-    if max(upper) < tree or max(lower) < tree:
-        return True
+    upper, lower = col[:i], col[i + 1 :]
 
-    return False
-
-
-def get_scenic_score(i: int, j: int, tree: int, data: list[str]):
-    viewing_distances = []
-
-    row = get_row(i, j, data)
-    leftmost = row[:j]
-    rightmost = row[j + 1 :]
-    distance = 0
-    for l in reversed(leftmost):
-        distance += 1
-        if l >= tree:
-            break
-    if distance == 0:
-        return 0
-    viewing_distances.append(distance)
-
-    distance = 0
-    for l in rightmost:
-        distance += 1
-        if l >= tree:
-            break
-    if distance == 0:
-        return 0
-    viewing_distances.append(distance)
-
-    col = get_column(i, j, data)
-    upper = col[:i]
-    lower = col[i + 1 :]
-
-    distance = 0
-    for l in reversed(upper):
-        distance += 1
-        if l >= tree:
-            break
-    if distance == 0:
-        return 0
-    viewing_distances.append(distance)
-
-    distance = 0
-    for l in lower:
-        distance += 1
-        if l >= tree:
-            break
-    if distance == 0:
-        return 0
-    viewing_distances.append(distance)
-
-    return math.prod(viewing_distances)
+    return (
+        check_tree_visibility_from_trees(tree, left)
+        or check_tree_visibility_from_trees(tree, right)
+        or check_tree_visibility_from_trees(tree, upper)
+        or check_tree_visibility_from_trees(tree, lower)
+    )
 
 
 def part1(data: list[str]) -> int:
@@ -95,6 +47,32 @@ def part1(data: list[str]) -> int:
             if check_tree_visibility(i, j, tree, data):
                 nb_visible_trees += 1
     return nb_visible_trees
+
+
+def get_distance(tree: str, trees: list[str]) -> int:
+    distance = 0
+    for t in trees:
+        distance += 1
+        if t >= tree:
+            break
+    return distance
+
+
+def get_scenic_score(i: int, j: int, tree: str, data: list[str]) -> int:
+    row = get_row(i, j, data)
+    left, right = row[:j], row[j + 1 :]
+
+    col = get_column(i, j, data)
+    upper, lower = col[:i], col[i + 1 :]
+
+    viewing_distances = (
+        [get_distance(tree, reversed(left))]
+        + [get_distance(tree, right)]
+        + [get_distance(tree, reversed(upper))]
+        + [get_distance(tree, lower)]
+    )
+
+    return math.prod(viewing_distances)
 
 
 def part2(data: list[str]) -> int:
