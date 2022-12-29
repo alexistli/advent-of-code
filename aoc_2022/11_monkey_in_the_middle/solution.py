@@ -34,7 +34,7 @@ class Monkey:
     def relieve_worry_level(self) -> None:
         self.current_item = self.current_item // 3
 
-    def relieve_by_common_denominator(self, common_denominator) -> None:
+    def relieve_by_common_denominator(self, common_denominator: int) -> None:
         self.current_item = self.current_item % common_denominator
 
     def test_worry_level(self) -> int:
@@ -43,7 +43,7 @@ class Monkey:
         else:
             return self.test[2]
 
-    def receive_item(self, item) -> None:
+    def receive_item(self, item: int) -> None:
         self.starting_items.append(item)
 
     def throw_item(self, monkeys: list["Monkey"]) -> None:
