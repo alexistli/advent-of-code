@@ -7,7 +7,7 @@ from typing import Iterator
 from aoc_2022.helpers import get_input, parse_data
 
 
-def get_calories_by_elf(calories_list):
+def get_calories_by_elf(calories_list: list[str]) -> Iterator[list[int]]:
     elf_calories = []
     for calories in calories_list:
         if calories == "":
