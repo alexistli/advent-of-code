@@ -2,28 +2,6 @@ from aoc_2022.helpers import get_input
 from aoc_2022.day_02.part_1 import A, B, C, get_shape_score
 
 
-OUTCOM_MAPPING = {"X": 0, "Y": 3, "Z": 6}
-
-
-def get_shape_score(opponent_shape, outcome):
-    if outcome == "Z":
-        if opponent_shape.score == 1:
-            return 2
-        if opponent_shape.score == 2:
-            return 3
-        if opponent_shape.score == 3:
-            return 1
-    if outcome == "Y":
-        return opponent_shape.score
-    if outcome == "X":
-        if opponent_shape.score == 1:
-            return 3
-        if opponent_shape.score == 2:
-            return 1
-        if opponent_shape.score == 3:
-            return 2
-
-
 def main():
     data = get_input("aoc_2022/day_02/input.txt")
 

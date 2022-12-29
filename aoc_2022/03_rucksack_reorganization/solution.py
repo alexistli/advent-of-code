@@ -1,4 +1,4 @@
-"""AoC 4, 2022: Rucksack Reorganization."""
+"""AoC 3, 2022: Rucksack Reorganization."""
 
 
 from collections import Counter
