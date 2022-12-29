@@ -1,16 +1,11 @@
 """AoC 13, 2022: Distress Signal."""
 
 
-from aoc_2022.helpers import get_input
+from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
 
 CWD = pathlib.Path(__file__).parent
-
-
-def parse_data(puzzle_input: list[str]) -> list[str]:
-    """Parse input."""
-    return [row.strip("\n") for row in puzzle_input]
 
 
 def check_pair_right_order(pair):

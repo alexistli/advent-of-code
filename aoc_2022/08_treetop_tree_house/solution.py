@@ -1,15 +1,10 @@
 """AoC 8, 2022: Treetop Tree House."""
 
 
-from aoc_2022.helpers import get_input
+from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
 import math
-
-
-def parse_data(puzzle_input: list[str]) -> list[str]:
-    """Parse input."""
-    return [[int(tree) for tree in list(row.strip("\n"))] for row in puzzle_input]
 
 
 def get_row(i, _j, data):

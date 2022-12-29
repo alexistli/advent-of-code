@@ -1,7 +1,7 @@
 """AoC 14, 2022: Regolith Reservoir."""
 
 
-from aoc_2022.helpers import get_input
+from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
 
@@ -10,11 +10,6 @@ CWD = pathlib.Path(__file__).parent
 SAND_ORIGIN = (500, 0)
 X_MAX = 800
 Y_MAX = 180
-
-
-def parse_data(puzzle_input: list[str]) -> list[str]:
-    """Parse input."""
-    return [row.strip("\n") for row in puzzle_input]
 
 
 def generate_path_between_two_points(start: tuple[int, int], end: tuple[int, int]):

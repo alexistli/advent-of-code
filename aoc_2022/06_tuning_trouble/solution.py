@@ -1,14 +1,9 @@
 """AoC 6, 2022: Tuning Trouble."""
 
 
-from aoc_2022.helpers import get_input
+from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
-
-
-def parse_data(puzzle_input):
-    """Parse input."""
-    return puzzle_input[0]
 
 
 def get_marker_position(data, marker_size):
@@ -24,13 +19,13 @@ def get_marker_position(data, marker_size):
 def part1(data):
     """Solve part 1."""
     marker_size = 4
-    return get_marker_position(data, marker_size)
+    return get_marker_position(data[0], marker_size)
 
 
 def part2(data):
     """Solve part 2."""
     marker_size = 14
-    return get_marker_position(data, marker_size)
+    return get_marker_position(data[0], marker_size)
 
 
 def solve(puzzle_input):

@@ -2,7 +2,7 @@
 
 
 import math
-from aoc_2022.helpers import get_input
+from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
 
@@ -49,11 +49,6 @@ class Monkey:
     def throw_item(self, monkeys: list["Monkey"]) -> None:
         target_monkey = monkeys[self.test_worry_level()]
         target_monkey.receive_item(self.current_item)
-
-
-def parse_data(puzzle_input: list[str]) -> list[str]:
-    """Parse input."""
-    return [row.strip("\n") for row in puzzle_input]
 
 
 def parse_monkey_note(monkey_note: list[str]) -> Monkey:

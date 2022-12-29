@@ -1,7 +1,7 @@
 """AoC 7, 2022: No Space Left On Device."""
 
 
-from aoc_2022.helpers import get_input
+from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
 
@@ -47,11 +47,6 @@ class Directory:
                     print("true")
                     return True
         return False
-
-
-def parse_data(puzzle_input: list[str]) -> list[str]:
-    """Parse input."""
-    return [row.strip("\n") for row in puzzle_input]
 
 
 def parse_commands(commands: list[str]):

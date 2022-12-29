@@ -1,14 +1,9 @@
 """AoC 9, 2022: Rope Bridge."""
 
 
-from aoc_2022.helpers import get_input
+from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
-
-
-def parse_data(puzzle_input):
-    """Parse input."""
-    return [row.strip("\n") for row in puzzle_input]
 
 
 def signum(x):
