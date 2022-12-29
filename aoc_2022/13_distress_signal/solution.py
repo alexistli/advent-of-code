@@ -1,9 +1,10 @@
 """AoC 13, 2022: Distress Signal."""
 
+import pathlib
+from typing import Iterator
 
 from aoc_2022.helpers import get_input, parse_data
 
-import pathlib
 
 CWD = pathlib.Path(__file__).parent
 
@@ -28,7 +29,7 @@ def check_pair_right_order(pair):
     return is_right_order
 
 
-def part1(data: list[str]):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     indexes_right_order = []
     pairs = [data[i : i + 2] for i in range(0, len(data), 3)]
@@ -39,7 +40,7 @@ def part1(data: list[str]):
     return sum(indexes_right_order)
 
 
-def part2(data: list[str]):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     divider_packets = [[[2]], [[6]]]
     pairs = [data[i : i + 2] for i in range(0, len(data), 3)]
@@ -73,7 +74,7 @@ def part2(data: list[str]):
     return divider_packet_indexes[0] * divider_packet_indexes[1]
 
 
-def solve(puzzle_input: list[str]):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

@@ -4,6 +4,7 @@
 from collections import Counter
 import pathlib
 import string
+from typing import Iterator
 
 from aoc_2022.helpers import get_input, parse_data
 
@@ -28,7 +29,7 @@ def compute_item_priority(item: str):
     return PRIORITY_MAPPING[item]
 
 
-def part1(data):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     duplicate_compartment_items = []
     for row in data:
@@ -45,7 +46,7 @@ def part1(data):
     return priority_sum
 
 
-def chunk_triplets(data):
+def chunk_triplets(data: list[str]):
     for i in range(0, len(data), 3):
         yield data[i : i + 3]
 
@@ -60,7 +61,7 @@ def get_item_common_among_triplet(elf_triplet):
     return item_occurence_by_elf.most_common(1)[0][0]
 
 
-def part2(data):
+def part2(data) -> int:
     """Solve part 2."""
     elf_triplets = chunk_triplets(data)
     total_priority = 0
@@ -71,7 +72,7 @@ def part2(data):
     return total_priority
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

@@ -1,6 +1,7 @@
 """AoC 7, 2022: No Space Left On Device."""
 
 
+from typing import Iterator
 from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
@@ -108,7 +109,7 @@ def part2(data: list[str]) -> int:
     return res
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

@@ -1,6 +1,7 @@
 """AoC 6, 2022: Tuning Trouble."""
 
 
+from typing import Iterator
 from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
@@ -16,19 +17,19 @@ def get_marker_position(data, marker_size):
             return i + marker_size
 
 
-def part1(data):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     marker_size = 4
     return get_marker_position(data[0], marker_size)
 
 
-def part2(data):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     marker_size = 14
     return get_marker_position(data[0], marker_size)
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

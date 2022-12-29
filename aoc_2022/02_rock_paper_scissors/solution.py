@@ -3,6 +3,7 @@
 from collections import namedtuple
 
 import pathlib
+from typing import Iterator
 
 from aoc_2022.helpers import get_input, parse_data
 
@@ -37,7 +38,7 @@ def get_outcome_score(opponent_shape: Shape, my_shape: Shape):
             return 0
 
 
-def part1(data):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     total_score = 0
     for row in data:
@@ -74,7 +75,7 @@ def get_shape_score_part2(opponent_shape, outcome):
             return 2
 
 
-def part2(data):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     total_score = 0
     for row in data:
@@ -89,7 +90,7 @@ def part2(data):
     return total_score
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

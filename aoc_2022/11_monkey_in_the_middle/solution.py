@@ -1,12 +1,12 @@
 """AoC 11, 2022: Monkey in the Middle."""
 
-
+from collections import deque
 import math
+import pathlib
+from typing import Iterator
+
 from aoc_2022.helpers import get_input, parse_data
 
-import pathlib
-
-from collections import deque
 
 CWD = pathlib.Path(__file__).parent
 
@@ -69,7 +69,7 @@ def parse_monkey_note(monkey_note: list[str]) -> Monkey:
     return monkey
 
 
-def part1(data: list[str]):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     monkeys: list[Monkey] = []
     for i in range(0, len(data), 7):
@@ -91,7 +91,7 @@ def part1(data: list[str]):
     return monkey_business
 
 
-def part2(data: list[str]):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     monkeys: list[Monkey] = []
     for i in range(0, len(data), 7):
@@ -115,7 +115,7 @@ def part2(data: list[str]):
     return monkey_business
 
 
-def solve(puzzle_input: list[str]):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

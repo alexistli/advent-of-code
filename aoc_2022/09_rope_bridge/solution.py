@@ -1,6 +1,7 @@
 """AoC 9, 2022: Rope Bridge."""
 
 
+from typing import Iterator
 from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
@@ -33,7 +34,7 @@ def catchup_with_head(
                 bridge[tail[0]][tail[1]] = "#"
 
 
-def part1(data):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     PUZZLE_SIZE = 3000
     bridge = [[" "] * PUZZLE_SIZE for _ in range(PUZZLE_SIZE)]
@@ -67,7 +68,7 @@ def part1(data):
     return nb_visited_positions
 
 
-def part2(data):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     PUZZLE_SIZE = 3000
     bridge = [[" "] * PUZZLE_SIZE for _ in range(PUZZLE_SIZE)]
@@ -109,7 +110,7 @@ def part2(data):
     return nb_visited_positions
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     # yield part1(data)

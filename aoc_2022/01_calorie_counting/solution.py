@@ -2,6 +2,7 @@
 
 
 import pathlib
+from typing import Iterator
 
 from aoc_2022.helpers import get_input, parse_data
 
@@ -16,7 +17,7 @@ def get_calories_by_elf(calories_list):
         elf_calories += [int(calories)]
 
 
-def part1(data):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     calories_grouped_by_elf = get_calories_by_elf(data)
     max_elf_colories = max(
@@ -25,7 +26,7 @@ def part1(data):
     return max_elf_colories
 
 
-def part2(data):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     calories_grouped_by_elf = get_calories_by_elf(data)
     summed_elf_colories = [
@@ -36,7 +37,7 @@ def part2(data):
     return sum_top_3_elf_calories
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

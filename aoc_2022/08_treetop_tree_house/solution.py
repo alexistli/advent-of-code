@@ -1,6 +1,7 @@
 """AoC 8, 2022: Treetop Tree House."""
 
 
+from typing import Iterator
 from aoc_2022.helpers import get_input, parse_data
 
 import pathlib
@@ -86,7 +87,7 @@ def get_scenic_score(i: int, j: int, tree: int, data: list[str]):
     return math.prod(viewing_distances)
 
 
-def part1(data):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     nb_visible_trees = 0
     for i, row in enumerate(data):
@@ -96,7 +97,7 @@ def part1(data):
     return nb_visible_trees
 
 
-def part2(data):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     best_scenic_score = 0
     for i, row in enumerate(data):
@@ -107,7 +108,7 @@ def part2(data):
     return best_scenic_score
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

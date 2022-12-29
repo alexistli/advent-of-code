@@ -2,7 +2,7 @@
 
 
 import pathlib
-from typing import Iterator
+from typing import Any, Iterator
 
 
 from aoc_2022.helpers import get_input, parse_data
@@ -11,15 +11,15 @@ from aoc_2022.helpers import get_input, parse_data
 CWD = pathlib.Path(__file__).parent
 
 
-def part1(data: list[str]) -> int:
+def part1(data: list[str]) -> Any:
     """Solve part 1."""
 
 
-def part2(data: list[str]) -> int:
+def part2(data: list[str]) -> Any:
     """Solve part 2."""
 
 
-def solve(puzzle_input: list[str]) -> Iterator[int]:
+def solve(puzzle_input: list[str]) -> Iterator[Any]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

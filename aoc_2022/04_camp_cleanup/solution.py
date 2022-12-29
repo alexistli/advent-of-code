@@ -2,6 +2,7 @@
 
 
 import pathlib
+from typing import Iterator
 
 from aoc_2022.helpers import get_input, parse_data
 
@@ -35,7 +36,7 @@ def compute_number_fully_overlapping_sections(elf_pairs_sections):
     return number
 
 
-def part1(data):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     elf_pairs_sections = parse_elf_pairs_sections(data)
     nb_overlapping_sections = compute_number_fully_overlapping_sections(
@@ -65,14 +66,14 @@ def compute_number_overlapping_sections(elf_pairs_sections):
     return number
 
 
-def part2(data):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     elf_pairs_sections = parse_elf_pairs_sections(data)
     nb_overlapping_sections = compute_number_overlapping_sections(elf_pairs_sections)
     return nb_overlapping_sections
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

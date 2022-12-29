@@ -4,6 +4,7 @@
 import pathlib
 
 from collections import deque
+from typing import Iterator
 
 
 from aoc_2022.helpers import get_input, parse_data
@@ -40,7 +41,7 @@ def execute_instruction_part1(queues: list[deque], instruction):
         queues[destination - 1].appendleft(crate_to_move)
 
 
-def part1(data):
+def part1(data: list[str]) -> str:
     """Solve part 1."""
     stacks, procedure = parse_puzzle(data)
 
@@ -62,7 +63,7 @@ def execute_instruction_part2(queues: list[deque], instruction):
         queues[destination - 1].appendleft(crate)
 
 
-def part2(data):
+def part2(data: list[str]) -> str:
     """Solve part 2."""
     stacks, procedure = parse_puzzle(data)
 
@@ -73,7 +74,7 @@ def part2(data):
     return "".join([queue[0].strip("[").strip("]") for queue in queues])
 
 
-def solve(puzzle_input):
+def solve(puzzle_input: list[str]) -> Iterator[str]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)

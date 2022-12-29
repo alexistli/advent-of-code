@@ -1,9 +1,10 @@
 """AoC 14, 2022: Regolith Reservoir."""
 
+import pathlib
+from typing import Iterator
 
 from aoc_2022.helpers import get_input, parse_data
 
-import pathlib
 
 CWD = pathlib.Path(__file__).parent
 
@@ -94,7 +95,7 @@ def simulate_falling_sand(
     return steps
 
 
-def part1(data: list[str]):
+def part1(data: list[str]) -> int:
     """Solve part 1."""
     drawing, lowest_path_point = create_drawing_from_scan(data)
     steps = simulate_falling_sand(
@@ -106,7 +107,7 @@ def part1(data: list[str]):
     return steps
 
 
-def part2(data: list[str]):
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     drawing, lowest_path_point = create_drawing_from_scan(data)
     steps = simulate_falling_sand(
@@ -118,7 +119,7 @@ def part2(data: list[str]):
     return steps + 1
 
 
-def solve(puzzle_input: list[str]):
+def solve(puzzle_input: list[str]) -> Iterator[int]:
     """Solve the puzzle for the given input."""
     data = parse_data(puzzle_input)
     yield part1(data)
