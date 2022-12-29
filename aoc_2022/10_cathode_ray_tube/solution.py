@@ -1,10 +1,11 @@
 """AoC 10, 2022: Cathode-Ray Tube."""
 
 
+import pathlib
 from typing import Iterator
+
 from aoc_2022.helpers import get_input, parse_data
 
-import pathlib
 
 CWD = pathlib.Path(__file__).parent
 
@@ -14,7 +15,9 @@ def compute_new_register(register: int, v: int) -> int:
     return register
 
 
-def run_cycle(cycle: int, register: int, v: int, signal_strengths: list[int]):
+def run_cycle(
+    cycle: int, register: int, v: int, signal_strengths: list[int]
+) -> tuple[int, int]:
     if cycle == 20 or (cycle > 20 and (cycle - 20) % 40 == 0):
         signal_strengths.append(cycle * register)
     if v:
@@ -39,7 +42,9 @@ def part1(data: list[str]) -> int:
     return sum(signal_strengths)
 
 
-def run_crt_cycle(cycle: int, register: int, v: int, crt_screen: list[int]):
+def run_crt_cycle(
+    cycle: int, register: int, v: int, crt_screen: list[int]
+) -> tuple[int, int]:
     row, column = (cycle - 1) // 40, (cycle - 1) % 40
     if column in range(register - 1, register + 2):
         crt_screen[row][column] = "#"
@@ -49,8 +54,11 @@ def run_crt_cycle(cycle: int, register: int, v: int, crt_screen: list[int]):
     return register, cycle
 
 
-def part2(data: list[str]):
-    """Solve part 2."""
+def part2(data: list[str]) -> None:
+    """Solve part 2.
+
+    Return None. Must look at the printed console output for answer.
+    """
     register = 1
     crt_screen = [["."] * 40 for _ in range(6)]
     cycle = 1
