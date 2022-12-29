@@ -7,7 +7,7 @@ from typing import Iterator
 from aoc_2022.helpers import get_input, parse_data
 
 
-def parse_elf_pairs_sections(data: list[str]):
+def parse_elf_pairs_sections(data: list[str]) -> list[list[list[int]]]:
     elf_pairs_sections = []
     for elf_pair_raw in data:
         elf_pair = []
@@ -22,12 +22,14 @@ def parse_elf_pairs_sections(data: list[str]):
     return elf_pairs_sections
 
 
-def get_resulting_section(elf_pair_sections):
+def get_resulting_section(elf_pair_sections: list[list[int]]) -> list[int]:
     full_section = elf_pair_sections[0] + elf_pair_sections[1]
     return [min(full_section), max(full_section)]
 
 
-def compute_number_fully_overlapping_sections(elf_pairs_sections):
+def compute_number_fully_overlapping_sections(
+    elf_pairs_sections: list[list[list[int]]],
+) -> int:
     number = 0
     for elf_pair_sections in elf_pairs_sections:
         elf_pair_resulting_section = get_resulting_section(elf_pair_sections)
@@ -45,7 +47,7 @@ def part1(data: list[str]) -> int:
     return nb_overlapping_sections
 
 
-def check_section_overlap(elf_pair_sections):
+def check_section_overlap(elf_pair_sections: list[list[int]]) -> bool:
     section_1, section_2 = elf_pair_sections
     section_1_inf, section_1_sup = section_1
     section_2_inf, section_2_sup = section_2
@@ -58,7 +60,9 @@ def check_section_overlap(elf_pair_sections):
     return False
 
 
-def compute_number_overlapping_sections(elf_pairs_sections):
+def compute_number_overlapping_sections(
+    elf_pairs_sections: list[list[list[int]]],
+) -> int:
     number = 0
     for elf_pair_sections in elf_pairs_sections:
         if check_section_overlap(elf_pair_sections):
