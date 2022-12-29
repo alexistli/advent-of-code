@@ -1,16 +1,15 @@
 """AoC 5, 2022: Supply Stacks."""
 
 
-import pathlib
-
 from collections import deque
+import pathlib
 from typing import Iterator
 
 
 from aoc_2022.helpers import get_input, parse_data
 
 
-def parse_puzzle(data: list):
+def parse_puzzle(data: list[str]) -> tuple[list[str], list[list[str]]]:
     idx = data.index("")
 
     drawing_raw = data[: idx - 1]
@@ -28,12 +27,12 @@ def parse_puzzle(data: list):
     return trimmed_stacks, procedure
 
 
-def parse_instruction(instruction):
+def parse_instruction(instruction: str) -> tuple[int, int, int]:
     _, quantity, _, source, _, destination = instruction.split()
     return int(quantity), int(source), int(destination)
 
 
-def execute_instruction_part1(queues: list[deque], instruction):
+def execute_instruction_part1(queues: list[deque], instruction: str) -> None:
     quantity, source, destination = parse_instruction(instruction)
 
     for _ in range(quantity):
@@ -52,7 +51,7 @@ def part1(data: list[str]) -> str:
     return "".join([queue[0].strip("[").strip("]") for queue in queues])
 
 
-def execute_instruction_part2(queues: list[deque], instruction):
+def execute_instruction_part2(queues: list[deque], instruction: str) -> None:
     quantity, source, destination = parse_instruction(instruction)
 
     crates_to_move = []
