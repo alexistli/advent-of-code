@@ -1,11 +1,11 @@
 """AoC 2, 2022: Rock Paper Scissors."""
 
 from collections import namedtuple
-
 import pathlib
 from typing import Iterator
 
 from aoc_2022.helpers import get_input, parse_data
+
 
 Shape = namedtuple("Shape", "name score")
 
@@ -18,7 +18,7 @@ def get_shape_score_part1(shape: Shape) -> int:
     return shape.score
 
 
-def get_outcome_score(opponent_shape: Shape, my_shape: Shape):
+def get_outcome_score(opponent_shape: Shape, my_shape: Shape) -> int:
     if opponent_shape == my_shape:
         return 3
     elif opponent_shape == A:
@@ -53,10 +53,10 @@ def part1(data: list[str]) -> int:
     return total_score
 
 
-OUTCOM_MAPPING = {"X": 0, "Y": 3, "Z": 6}
+OUTCOME_MAPPING = {"X": 0, "Y": 3, "Z": 6}
 
 
-def get_shape_score_part2(opponent_shape, outcome):
+def get_shape_score_part2(opponent_shape: Shape, outcome: str) -> int:
     if outcome == "Z":
         if opponent_shape.score == 1:
             return 2
@@ -83,7 +83,7 @@ def part2(data: list[str]) -> int:
         opponent_shape = eval(opponent_shape_raw)
 
         shape_score = get_shape_score_part2(opponent_shape, outcome)
-        outcome_score = OUTCOM_MAPPING[outcome]
+        outcome_score = OUTCOME_MAPPING[outcome]
         round_score = shape_score + outcome_score
         total_score += round_score
 
