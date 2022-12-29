@@ -14,18 +14,20 @@ PRIORITY_MAPPING = {
 }
 
 
-def split_compartments(items):
+def split_compartments(items: str) -> list[str]:
     nb_items = len(items)
     return items[: nb_items // 2], items[nb_items // 2 :]
 
 
-def get_items_both_compartments(compartment_1_items, compartment_2_items):
+def get_items_both_compartments(
+    compartment_1_items: str, compartment_2_items: str
+) -> str:
     for item in compartment_2_items:
         if item in compartment_1_items:
             return item
 
 
-def compute_item_priority(item: str):
+def compute_item_priority(item: str) -> int:
     return PRIORITY_MAPPING[item]
 
 
@@ -46,12 +48,12 @@ def part1(data: list[str]) -> int:
     return priority_sum
 
 
-def chunk_triplets(data: list[str]):
+def chunk_triplets(data: list[str]) -> Iterator[list[str]]:
     for i in range(0, len(data), 3):
         yield data[i : i + 3]
 
 
-def get_item_common_among_triplet(elf_triplet):
+def get_item_common_among_triplet(elf_triplet: list[str]) -> str:
     rucksack_1 = set(elf_triplet[0])
     rucksack_2 = set(elf_triplet[1])
     rucksack_3 = set(elf_triplet[2])
@@ -61,7 +63,7 @@ def get_item_common_among_triplet(elf_triplet):
     return item_occurence_by_elf.most_common(1)[0][0]
 
 
-def part2(data) -> int:
+def part2(data: list[str]) -> int:
     """Solve part 2."""
     elf_triplets = chunk_triplets(data)
     total_priority = 0
