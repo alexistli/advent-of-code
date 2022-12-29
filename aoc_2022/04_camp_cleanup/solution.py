@@ -3,8 +3,6 @@
 
 import pathlib
 
-from collections import deque
-
 from aoc_2022.helpers import get_input, parse_data
 
 
