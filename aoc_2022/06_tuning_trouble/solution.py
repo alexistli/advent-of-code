@@ -1,13 +1,12 @@
 """AoC 6, 2022: Tuning Trouble."""
 
-
+import pathlib
 from typing import Iterator
+
 from aoc_2022.helpers import get_input, parse_data
 
-import pathlib
 
-
-def get_marker_position(data, marker_size):
+def get_marker_position(data: list[str], marker_size: int) -> int:
     """Return the marker's last character position in a data stream.
 
     Marker is a sequence of `marker_size` characters all different"""
