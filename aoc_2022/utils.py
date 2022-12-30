@@ -1,3 +1,8 @@
+"""Utilities for AoC 2022.
+
+This module will be dedicated to 2022 edition.
+"""
+
 def get_input(path: str) -> list[str]:
     """Get input."""
     with open(path) as f:

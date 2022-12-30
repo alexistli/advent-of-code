@@ -4,8 +4,7 @@ from collections import namedtuple
 import pathlib
 from typing import Iterator
 
-from aoc_2022.helpers import get_input, parse_data
-
+from aoc_2022.utils import get_input, parse_data
 
 Shape = namedtuple("Shape", "name score")
 

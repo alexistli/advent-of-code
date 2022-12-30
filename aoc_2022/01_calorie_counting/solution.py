@@ -4,7 +4,7 @@
 import pathlib
 from typing import Iterator
 
-from aoc_2022.helpers import get_input, parse_data
+from aoc_2022.utils import get_input, parse_data
 
 
 def get_calories_by_elf(calories_list: list[str]) -> Iterator[list[int]]:

@@ -5,8 +5,7 @@ from collections import deque
 import pathlib
 from typing import Iterator
 
-
-from aoc_2022.helpers import get_input, parse_data
+from aoc_2022.utils import get_input, parse_data
 
 
 def parse_puzzle(data: list[str]) -> tuple[list[str], list[list[str]]]:

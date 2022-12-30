@@ -5,8 +5,7 @@ import math
 import pathlib
 from typing import Iterator
 
-
-from aoc_2022.helpers import get_input, parse_data
+from aoc_2022.utils import get_input, parse_data
 
 
 def get_row(i: int, _j: int, data: list[str]) -> str:

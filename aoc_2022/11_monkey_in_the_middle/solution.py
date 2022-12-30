@@ -5,8 +5,7 @@ import math
 import pathlib
 from typing import Iterator
 
-from aoc_2022.helpers import get_input, parse_data
-
+from aoc_2022.utils import get_input, parse_data
 
 CWD = pathlib.Path(__file__).parent
 
