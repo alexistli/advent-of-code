@@ -1,0 +1,29 @@
+{
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "[feature]": {
+    "editor.formatOnSave": true,
+    "code-eol.newlineCharacter": "¬",
+    "code-eol.returnCharacter": "⇠",
+    "code-eol.crlfCharacter": "↵"
+  },
+  "cSpell.words": ["pandoc"],
+  "isort.args": ["--settings-path=${workspaceFolder}/.isort.cfg"],
+  "python.defaultInterpreterPath": "${workspaceRoot}/.venv/bin/python",
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": [
+    "--line-length",
+    "120",
+    "--target-version",
+    "py311"
+  ],
+  "python.linting.enabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pylintArgs": ["--max-line-length=120"]
+}
