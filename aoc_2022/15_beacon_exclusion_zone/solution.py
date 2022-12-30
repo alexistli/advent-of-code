@@ -5,7 +5,6 @@ import pathlib
 import re
 from typing import Iterator
 
-
 from aoc_2022.helpers import get_input, parse_data
 
 
@@ -19,12 +18,14 @@ Coords = tuple[int, int]
 Column = list[str]
 
 
-def compute_manhattan_distance(x1, y1, x2, y2) -> int:
+def compute_manhattan_distance(x1: int, y1: int, x2: int, y2: int) -> int:
     """Compute Manhattan distance between two points."""
     return abs(x2 - x1) + abs(y2 - y1)
 
 
-def parse_positions(data: list[str]):
+def parse_positions(
+    data: list[str],
+) -> tuple[set[tuple[int, int, int]], set[tuple[Coords]]]:
     sensors, beacons = set(), set()
     for row in data:
         match = POSITIONS_PATTERN.match(row)
@@ -36,14 +37,16 @@ def parse_positions(data: list[str]):
     return sensors, beacons
 
 
-def check_possible_location(sensors, beacons, x, y):
+def check_possible_location(
+    sensors: set[tuple[int, int, int]], beacons: set[tuple[Coords]], x: int, y: int
+) -> bool:
     for sx, sy, d in sensors:
         if compute_manhattan_distance(x, y, sx, sy) <= d and (x, y) not in beacons:
             return False
     return True
 
 
-def part1(data):
+def part1(data: list[str]) -> int:
     sensors, beacons = parse_positions(data)
     count = 0
     column_to_check = 2_000_000
