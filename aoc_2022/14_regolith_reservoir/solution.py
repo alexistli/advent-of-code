@@ -1,7 +1,8 @@
 """AoC 14, 2022: Regolith Reservoir."""
 
+
 import pathlib
-from typing import Iterator
+from typing import Callable, Iterator
 
 from aoc_2022.helpers import get_input, parse_data
 
@@ -12,8 +13,10 @@ SAND_ORIGIN = (500, 0)
 X_MAX = 800
 Y_MAX = 180
 
+Point = tuple[int, int]
 
-def generate_path_between_two_points(start: tuple[int, int], end: tuple[int, int]):
+
+def generate_path_between_two_points(start: str, end: str) -> set[Point]:
     x_start = int(start.split(",")[0])
     x_end = int(end.split(",")[0])
 
@@ -30,7 +33,7 @@ def generate_path_between_two_points(start: tuple[int, int], end: tuple[int, int
     }
 
 
-def generate_path_coordinates(points: list[str]):
+def generate_path_coordinates(points: list[str]) -> list[set[Point]]:
     paths = []
     for index, coordinates in enumerate(points[:-1]):
         path = generate_path_between_two_points(coordinates, points[index + 1])
@@ -39,7 +42,7 @@ def generate_path_coordinates(points: list[str]):
     return paths
 
 
-def create_drawing_from_scan(data: list[str]):
+def create_drawing_from_scan(data: list[str]) -> tuple[list[list[str]], int]:
     drawing = [["."] * X_MAX for _ in range(Y_MAX)]
 
     paths = [
@@ -59,7 +62,7 @@ def create_drawing_from_scan(data: list[str]):
     return drawing, lowest_path_point
 
 
-def insert_grain(drawing, max_depth):
+def insert_grain(drawing: list[list[str]], max_depth: int) -> Point:
     grain = SAND_ORIGIN
     is_bottom = False
     while not is_bottom:
@@ -81,8 +84,8 @@ def insert_grain(drawing, max_depth):
 
 
 def simulate_falling_sand(
-    drawing: list[list[str]], lowest_path_point, max_depth, stop_func
-):
+    drawing: list[list[str]], max_depth: int, stop_func: Callable
+) -> int:
     steps = 0
     is_finished = False
     while not is_finished:
@@ -100,7 +103,6 @@ def part1(data: list[str]) -> int:
     drawing, lowest_path_point = create_drawing_from_scan(data)
     steps = simulate_falling_sand(
         drawing,
-        lowest_path_point,
         max_depth=Y_MAX,
         stop_func=lambda x: x[1] > lowest_path_point,
     )
@@ -112,7 +114,6 @@ def part2(data: list[str]) -> int:
     drawing, lowest_path_point = create_drawing_from_scan(data)
     steps = simulate_falling_sand(
         drawing,
-        lowest_path_point,
         max_depth=lowest_path_point + 2,
         stop_func=lambda x: x[1] == 0,
     )
