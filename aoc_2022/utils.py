@@ -1,9 +1,9 @@
-"""Utilities for AoC 2022.
+"""Utilities for AoC 2022."""
 
-This module will be dedicated to 2022 edition.
-"""
+import pathlib
 
-def get_input(path: str) -> list[str]:
+
+def get_input(path: pathlib.Path) -> list[str]:
     """Get input."""
     with open(path) as f:
         data = f.readlines()
