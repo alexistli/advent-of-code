@@ -13,7 +13,7 @@
     "code-eol.returnCharacter": "⇠",
     "code-eol.crlfCharacter": "↵"
   },
-  "cSpell.words": ["pandoc"],
+  "cSpell.words": ["mypy", "pandoc"],
   "isort.args": ["--settings-path=${workspaceFolder}/.isort.cfg"],
   "python.defaultInterpreterPath": "${workspaceRoot}/.venv/bin/python",
   "python.formatting.provider": "black",
@@ -25,5 +25,5 @@
   ],
   "python.linting.enabled": true,
   "python.linting.mypyEnabled": true,
-  "python.linting.pylintArgs": ["--max-line-length=120"]
+  "python.linting.flake8Enabled": true
 }
