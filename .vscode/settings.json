@@ -13,7 +13,6 @@
     "code-eol.returnCharacter": "⇠",
     "code-eol.crlfCharacter": "↵"
   },
-  "cSpell.words": ["mypy", "pandoc"],
   "isort.args": ["--settings-path=${workspaceFolder}/.isort.cfg"],
   "python.defaultInterpreterPath": "${workspaceRoot}/.venv/bin/python",
   "python.formatting.provider": "black",
