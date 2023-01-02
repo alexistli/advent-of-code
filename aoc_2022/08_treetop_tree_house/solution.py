@@ -16,7 +16,8 @@ def get_row(i: int, _j: int, data: Matrix) -> list[Tree]:
 
 
 def get_column(i: int, j: int, data: Matrix) -> list[Tree]:
-    return get_row(j, i, list(zip(*data)))
+    reversed_matrix = [list(row) for row in zip(*data)]  # could be just `zip(*data)` but cleaner typing management
+    return get_row(j, i, reversed_matrix)
 
 
 def check_tree_visibility_from_trees(tree: Tree, trees: Iterable[Tree]) -> bool | None:
