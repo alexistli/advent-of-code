@@ -1,6 +1,5 @@
 """AoC 4, 2022: Camp Cleanup."""
 
-
 import pathlib
 from typing import Iterator
 
@@ -41,9 +40,7 @@ def compute_number_fully_overlapping_sections(
 def part1(data: list[str]) -> int:
     """Solve part 1."""
     elf_pairs_sections = parse_elf_pairs_sections(data)
-    nb_overlapping_sections = compute_number_fully_overlapping_sections(
-        elf_pairs_sections
-    )
+    nb_overlapping_sections = compute_number_fully_overlapping_sections(elf_pairs_sections)
     return nb_overlapping_sections
 
 
@@ -89,6 +86,4 @@ if __name__ == "__main__":
     print("Examples:\n\t{}".format("\n\t".join(str(solution) for solution in examples)))
 
     solutions = solve(get_input(pathlib.Path(__file__).parent / "input.txt"))
-    print(
-        "Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions))
-    )
+    print("Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions)))
