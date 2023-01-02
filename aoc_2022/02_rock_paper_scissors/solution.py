@@ -6,11 +6,14 @@ from typing import Iterator
 
 from aoc_2022.utils import get_input, parse_data
 
+
 Shape = namedtuple("Shape", "name score")
 
 A = X = Shape("Rock", 1)
 B = Y = Shape("Paper", 2)
 C = Z = Shape("Scissors", 3)
+
+SHAPES = {A, B, C, X, Y, Z}
 
 
 def get_shape_score_part1(shape: Shape) -> int:
@@ -18,23 +21,16 @@ def get_shape_score_part1(shape: Shape) -> int:
 
 
 def get_outcome_score(opponent_shape: Shape, my_shape: Shape) -> int:
-    if opponent_shape == my_shape:
+    if opponent_shape == my_shape and opponent_shape in SHAPES and my_shape in SHAPES:
         return 3
     elif opponent_shape == A:
-        if my_shape == Y:
-            return 6
-        if my_shape == Z:
-            return 0
+        return 6 if my_shape == Y else 0  # my_shape == Z
     elif opponent_shape == B:
-        if my_shape == X:
-            return 0
-        if my_shape == Z:
-            return 6
+        return 0 if my_shape == X else 6  # my_shape == Z
     elif opponent_shape == C:
-        if my_shape == X:
-            return 6
-        if my_shape == Y:
-            return 0
+        return 6 if my_shape == X else 0  # my_shape == Y
+    else:
+        raise ValueError("Unexpected value for `opponent_shape`: %s or `my_shape`: %s", opponent_shape, my_shape)
 
 
 def part1(data: list[str]) -> int:
@@ -59,19 +55,25 @@ def get_shape_score_part2(opponent_shape: Shape, outcome: str) -> int:
     if outcome == "Z":
         if opponent_shape.score == 1:
             return 2
-        if opponent_shape.score == 2:
+        elif opponent_shape.score == 2:
             return 3
-        if opponent_shape.score == 3:
+        elif opponent_shape.score == 3:
             return 1
-    if outcome == "Y":
+        else:
+            raise ValueError("Unexpected value for `score`: %s", opponent_shape.score)
+    elif outcome == "Y":
         return opponent_shape.score
-    if outcome == "X":
+    elif outcome == "X":
         if opponent_shape.score == 1:
             return 3
-        if opponent_shape.score == 2:
+        elif opponent_shape.score == 2:
             return 1
-        if opponent_shape.score == 3:
+        elif opponent_shape.score == 3:
             return 2
+        else:
+            raise ValueError("Unexpected value for `score`: %s", opponent_shape.score)
+    else:
+        raise ValueError("Unexpected value for `outcome`: %s", outcome)
 
 
 def part2(data: list[str]) -> int:
@@ -101,6 +103,4 @@ if __name__ == "__main__":
     print("Examples:\n\t{}".format("\n\t".join(str(solution) for solution in examples)))
 
     solutions = solve(get_input(pathlib.Path(__file__).parent / "input.txt"))
-    print(
-        "Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions))
-    )
+    print("Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions)))
