@@ -1,12 +1,10 @@
 """AoC 14, 2022: Regolith Reservoir."""
 
-
 import pathlib
 from typing import Callable, Iterator
 
 from aoc_2022.utils import get_input, parse_data
 
-CWD = pathlib.Path(__file__).parent
 
 SAND_ORIGIN = (500, 0)
 X_MAX = 800
@@ -44,9 +42,7 @@ def generate_path_coordinates(points: list[str]) -> list[set[Point]]:
 def create_drawing_from_scan(data: list[str]) -> tuple[list[list[str]], int]:
     drawing = [["."] * X_MAX for _ in range(Y_MAX)]
 
-    paths = [
-        generate_path_coordinates(path_points.split(" -> ")) for path_points in data
-    ]
+    paths = [generate_path_coordinates(path_points.split(" -> ")) for path_points in data]
 
     lowest_path_point = SAND_ORIGIN[1]
 
@@ -82,9 +78,7 @@ def insert_grain(drawing: list[list[str]], max_depth: int) -> Point:
     return x, y
 
 
-def simulate_falling_sand(
-    drawing: list[list[str]], max_depth: int, stop_func: Callable
-) -> int:
+def simulate_falling_sand(drawing: list[list[str]], max_depth: int, stop_func: Callable) -> int:
     steps = 0
     is_finished = False
     while not is_finished:
@@ -127,8 +121,10 @@ def solve(puzzle_input: list[str]) -> Iterator[int]:
 
 
 if __name__ == "__main__":
-    examples = solve(get_input(CWD / "example.txt"))
+    cwd = pathlib.Path(__file__).parent
+
+    examples = solve(get_input(cwd / "example.txt"))
     print("Examples:\n\t{}".format("\n\t".join(str(e) for e in examples)))
 
-    solutions = solve(get_input(CWD / "input.txt"))
+    solutions = solve(get_input(cwd / "input.txt"))
     print("Solutions:\n\t{}".format("\n\t".join(str(s) for s in solutions)))
