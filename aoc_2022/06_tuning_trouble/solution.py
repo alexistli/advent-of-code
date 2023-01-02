@@ -6,14 +6,15 @@ from typing import Iterator
 from aoc_2022.utils import get_input, parse_data
 
 
-def get_marker_position(data: list[str], marker_size: int) -> int:
-    """Return the marker's last character position in a data stream.
+def get_marker_position(input: str, marker_size: int) -> int:
+    """Return the marker's last character position in a string.
 
     Marker is a sequence of `marker_size` characters all different"""
-    for i in range(0, len(data) - marker_size):
-        potential_marker = data[i : i + marker_size]
+    for i in range(0, len(input) - marker_size):
+        potential_marker = input[i : i + marker_size]
         if len(set(potential_marker)) == marker_size:
             return i + marker_size
+    raise RuntimeError("Unexpected error: no marker found.")
 
 
 def part1(data: list[str]) -> int:
@@ -40,6 +41,4 @@ if __name__ == "__main__":
     print("Examples:\n\t{}".format("\n\t".join(str(solution) for solution in examples)))
 
     solutions = solve(get_input(pathlib.Path(__file__).parent / "input.txt"))
-    print(
-        "Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions))
-    )
+    print("Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions)))
