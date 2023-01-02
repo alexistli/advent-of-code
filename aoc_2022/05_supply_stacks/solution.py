@@ -1,6 +1,5 @@
 """AoC 5, 2022: Supply Stacks."""
 
-
 from collections import deque
 import pathlib
 from typing import Iterator
@@ -8,16 +7,14 @@ from typing import Iterator
 from aoc_2022.utils import get_input, parse_data
 
 
-def parse_puzzle(data: list[str]) -> tuple[list[str], list[list[str]]]:
+def parse_puzzle(data: list[str]) -> tuple[list[list[str]], list[str]]:
     idx = data.index("")
 
     drawing_raw = data[: idx - 1]
     procedure_raw = data[idx + 1 :]
 
     drawing_as_list = [drawing_raw[i : i + 3] for i in range(0, len(drawing_raw), 4)]
-    drawing_as_list = [
-        [row[i : i + 3] for i in range(0, len(row) - 2, 4)] for row in drawing_raw
-    ]
+    drawing_as_list = [[row[i : i + 3] for i in range(0, len(row) - 2, 4)] for row in drawing_raw]
 
     stacks = list(zip(*drawing_as_list))
     trimmed_stacks = [[crate for crate in stack if crate != "   "] for stack in stacks]
@@ -84,6 +81,4 @@ if __name__ == "__main__":
     print("Examples:\n\t{}".format("\n\t".join(str(solution) for solution in examples)))
 
     solutions = solve(get_input(pathlib.Path(__file__).parent / "input.txt"))
-    print(
-        "Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions))
-    )
+    print("Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions)))
