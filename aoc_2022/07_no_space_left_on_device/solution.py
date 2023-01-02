@@ -1,7 +1,7 @@
 """AoC 7, 2022: No Space Left On Device."""
 
 import pathlib
-from typing import Iterator
+from typing import Iterator, Optional
 
 from aoc_2022.utils import get_input, parse_data
 
@@ -13,13 +13,13 @@ class File:
 
 
 class Directory:
-    def __init__(self, name: str, parent: "Directory") -> None:
+    def __init__(self, name: str, parent: Optional["Directory"]) -> None:
         self.name = name
+        self.parent = parent
         self.directories: list[Directory] = []
         self.files: list[File] = []
-        self.parent: Directory = parent
         self.size = 0
-        self.subdirs_sizes = []
+        self.subdirs_sizes: list[int] = []
 
     def add_file(self, file: File) -> None:
         if file not in self:
@@ -59,9 +59,7 @@ def build_tree(commands: list[str]) -> Directory:
             case ["$", "cd", ".."]:
                 current_node = current_node.parent or root
             case ["$", "cd", directory_name]:
-                current_node = next(
-                    d for d in current_node.directories if d.name == directory_name
-                )
+                current_node = next(d for d in current_node.directories if d.name == directory_name)
             case ["$", "ls"]:
                 pass
             case ["dir", directory_name]:
@@ -81,7 +79,7 @@ def part1(data: list[str]) -> int:
     """Solve part 1."""
     root = build_tree(data)
     root.compute_size()
-    directory_sizes = []
+    directory_sizes: list[int] = []
     record_directories_sizes(root, directory_sizes)
     low_sizes = [size for size in directory_sizes if size <= 100000]
     return sum(low_sizes)
@@ -89,20 +87,18 @@ def part1(data: list[str]) -> int:
 
 def part2(data: list[str]) -> int:
     """Solve part 2."""
-    AVAILABLE_ON_DISK = 70000000
-    NEEDED_SPACE = 30000000
+    available_space_on_disk = 70000000
+    needed_space = 30000000
 
     root = build_tree(data)
     root.compute_size()
-    directory_sizes = []
+    directory_sizes: list[int] = []
     record_directories_sizes(root, directory_sizes)
 
-    unused_space = AVAILABLE_ON_DISK - root.size
-    space_to_reclaim = NEEDED_SPACE - unused_space
+    unused_space = available_space_on_disk - root.size
+    space_to_reclaim = needed_space - unused_space
 
-    sizes_above_space_to_reclaim = [
-        size for size in directory_sizes if size >= space_to_reclaim
-    ]
+    sizes_above_space_to_reclaim = [size for size in directory_sizes if size >= space_to_reclaim]
     return min(sizes_above_space_to_reclaim)
 
 
@@ -118,6 +114,4 @@ if __name__ == "__main__":
     print("Examples:\n\t{}".format("\n\t".join(str(solution) for solution in examples)))
 
     solutions = solve(get_input(pathlib.Path(__file__).parent / "input.txt"))
-    print(
-        "Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions))
-    )
+    print("Solutions:\n\t{}".format("\n\t".join(str(solution) for solution in solutions)))
